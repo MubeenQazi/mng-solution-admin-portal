@@ -1,0 +1,233 @@
+/** @format */
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h5,
+  p {
+    font-family: "Raleway" !important;
+  }
+}
+.app-login-bg {
+  background-image: url("../../../../../public/AppImages/LoginBG.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  .app-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .login-inner {
+      background: #fff;
+      border-radius: 32px;
+      box-shadow: 0px 50px 60px #00000008;
+      width: 500px;
+      padding: 60px 50px;
+      margin-top: 30px;
+    }
+    .inner-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .content-left {
+        .sign-in {
+          color: #333333;
+          font-size: 36px;
+          font-family: "Raleway";
+          font-weight: bold;
+          margin: 0px;
+          display: flex;
+          align-items: center;
+          .lock {
+            height: 32px;
+            width: 32px;
+            margin-right: 15px;
+          }
+        }
+        h5 {
+          margin-top: 10px;
+          margin-bottom: 0px;
+          font-size: 20px;
+          color: #666666;
+          font-weight: 400;
+        }
+      }
+      .content-right {
+        .question-btn {
+          border: 2px solid #000;
+          border-radius: 50%;
+          font-size: 18px;
+          //   padding: 5px;
+          color: #000;
+          font-weight: bold;
+          display: inline-flex;
+          min-width: 42px;
+          height: 42px;
+          &:hover {
+            background: none;
+          }
+        }
+      }
+    }
+    .btn-submit {
+      border: 2px solid #d1d2d4;
+      border-radius: 10px;
+      padding: 10px 20px;
+      margin-top: 60px;
+      width: 100%;
+      display: inline-block;
+      &:hover {
+        background: none;
+      }
+      .btn-img {
+        float: left;
+        height: 58px;
+        margin-top: 7px;
+      }
+      .btn-text {
+        font-size: 20px;
+        color: #666666;
+        font-weight: 400;
+        text-transform: none;
+        // margin-left: 40px;
+        text-align: center;
+      }
+    }
+  }
+}
+.close-btn {
+  height: 60px !important;
+  width: 60px !important;
+}
+.MuiDialog-paper {
+  border-radius: 30px !important;
+  padding: 30px;
+}
+.popup-content {
+  flex-direction: column;
+  .popup-details {
+    // font-size: 30px;
+    color: #333333;
+    margin-top: 40px;
+    .label-contact-support,
+    .contact-email,
+    .contact-phone
+    {
+      font-weight: 400;
+      font-size: 20px;
+      margin: 5px;
+    }
+    hr{
+      color: #fbfbfb;
+      border: 1px solid #fbfbfb;
+    }
+    p{
+      margin: 0;
+      font-size: 25px;
+    }
+    text-align: center;
+    .popup-link {
+      color: #ee7623;
+    }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 1024px) {
+  .app-logo {
+    width: 200px;
+    height: 100px;
+    object-fit: contain;
+  }
+
+  .app-login-bg {
+    .app-login {
+      .login-inner {
+        margin-top: 10px !important;
+        width: 90% !important;
+        // min-width: 290px;
+        // padding-left: 30px;
+        // padding-right: 30px;
+      }
+    }
+  }
+
+  .app-login-bg {
+    .app-login {
+      .inner-content {
+        .content-left {
+          h5 {
+            font-size: 15px !important;
+          }
+        }
+        .content-right {
+          .question-btn {
+            min-width: 35px;
+            height: 35px;
+          }
+        }
+      }
+      .btn-submit {
+        margin-top: 30px;
+        .btn-img {
+          height: 40px !important;
+        }
+        .btn-text {
+          font-size: 14px !important;
+        }
+      }
+      .inner-content {
+        .content-left {
+          .sign-in {
+            font-size: 25px;
+          }
+        }
+      }
+    }
+  }
+
+  .close-btn {
+    height: 40px !important;
+    width: 40px !important;
+  }
+
+  .popup-content {
+    img {
+      max-width: 180px;
+    }
+    .popup-details {
+      font-size: 18px;
+      margin-top: 30px;
+    }
+  }
+}
+
+@media (max-width: 390px) {
+  .MuiDialog-paper {
+    padding: 10px;
+    margin: 15px;
+  }
+
+  .app-login-bg {
+    .app-login {
+      .login-inner {
+        // min-width: 290px;
+        padding-left: 30px !important;
+        padding-right: 30px !important;
+      }
+
+      .btn-submit {
+        .btn-img {
+          height: 25px !important;
+        }
+        .btn-text {
+          font-size: 12px !important;
+        }
+      }
+    }
+  }
+}

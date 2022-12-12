@@ -1,0 +1,31 @@
+@import "theme/theme";
+
+/* width */
+::-webkit-scrollbar {
+  width: 6.5px;
+  background-color: #ececec;
+  visibility: visible;
+  border-radius: 38px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 38px;
+  width: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #333333;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #333333;
+  visibility: visible;
+}
+.fancy-scroll:hover::-webkit-scrollbar-thumb {
+  background: #333333;
+}
+*:hover::-webkit-scrollbar-thumb,
+.fancy-scroll:hover::-webkit-scrollbar-thumb {
+  background-color: #333333;
+}

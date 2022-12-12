@@ -1,0 +1,14 @@
+@media (min-width: 320px) and (max-width: 1250px) {
+  .dahboard-layout-main {
+    width: 85%;
+    padding: 0px !important;
+    overflow-x: hidden;
+  }
+  .dahboard-layout-main .dahboard-header {
+    margin-top: 80px;
+  }
+  .dahboard-layout-main .content {
+    padding: 30px;
+  }
+}
+/*# sourceMappingURL=DashboardLayout.css.map */

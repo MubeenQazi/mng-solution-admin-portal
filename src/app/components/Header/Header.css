@@ -1,0 +1,97 @@
+/** @format */
+.dashboard-header .responsive-menu-hamburger {
+  display: none !important;
+}
+
+.profile-button {
+  text-align: left;
+  position: absolute !important;
+  right: 0;
+  top: 0;
+  text-transform: inherit !important;
+  width: 300px;
+  height: 85px;
+  background: var(--unnamed-color-ee7623) 0% 0% no-repeat padding-box;
+  background: #ee7623 0% 0% no-repeat padding-box;
+  -webkit-box-shadow: 15px 6px 20px #00000012;
+          box-shadow: 15px 6px 20px #00000012;
+  border-radius: 50px 0 0 50px !important;
+  font-size: 14px !important;
+  font-family: "Raleway" !important;
+  font-weight: 400 !important;
+  gap: 25px;
+  line-height: 2 !important;
+}
+
+.profile-button-mob {
+  display: none !important;
+}
+
+.profile-butto:hover {
+  color: #f1f1f1;
+  background-color: #ee7623 !important;
+}
+
+@media (max-width: 1440px) {
+  .dashboard-header .row-heading-text-close-button {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .dashboard-header .row-heading-text-close-button .MuiTableCell-root:nth-child(1) {
+    padding-right: 0px;
+  }
+  .dashboard-header .row-heading-text-close-button .MuiTableCell-root:nth-child(2) {
+    padding-left: 10px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 1250px) {
+  .dashboard-header {
+    margin-top: 0px;
+    padding: 0px 40px;
+    margin-bottom: 0px !important;
+  }
+  .dashboard-header button {
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 1250px) {
+  .dashboard-header .responsive-menu-hamburger {
+    display: table-cell !important;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 630px) {
+  .dashboard-header {
+    margin-top: 0px !important;
+  }
+  .dashboard-header .profile-button {
+    display: none;
+  }
+  .dashboard-header .profile-button-mob {
+    display: block !important;
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1200px) {
+  .dashboard-header {
+    margin-top: -10px;
+  }
+}
+/*# sourceMappingURL=Header.css.map */
