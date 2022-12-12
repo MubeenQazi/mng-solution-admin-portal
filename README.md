@@ -1,0 +1,1 @@
+# mng-solution-admin-portal
