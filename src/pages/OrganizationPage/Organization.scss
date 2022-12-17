@@ -1,0 +1,138 @@
+/** @format */
+
+.detail-title {
+  font-size: 42px;
+
+  .ms-active,
+  .ms-suspend {
+    font-size: 24px !important;
+  }
+}
+
+.organization {
+  .ms-meta-title {
+    font-size: 30px;
+    // line-height: 0;
+  }
+
+  .MuiInputBase-root {
+    background-color: #fff;
+    border-color: #d1d2d4;
+    border-radius: 7px;
+  }
+
+  .radio-button-group .MuiFormControlLabel-label {
+    font-size: 18px;
+  }
+}
+
+.discount-apply {
+  font: normal normal bold 18px/80px Raleway !important;
+  letter-spacing: 0px;
+  color: #333333;
+}
+
+.organization-table-container {
+  th,
+  td {
+    padding: 12px !important;
+  }
+  border-radius: 10px;
+  border: "1px solid #D1D2D433";
+  .organizationTitle {
+    font: normal normal bold 18px/36px Raleway !important;
+    letter-spacing: 0px !important;
+    a {
+      color: #ee7623;
+    }
+  }
+
+  .discount {
+    font: normal normal bold 18px/80px Raleway !important;
+    letter-spacing: 0.54px !important;
+    color: #ee7623;
+  }
+
+  .table-tag {
+    /* UI Properties */
+    background: #0a7eca 0% 0% no-repeat padding-box;
+    color: #fff;
+    border-radius: 5px;
+    padding: 7px 10px;
+    font-size: 14px;
+    margin-right: 16px;
+    opacity: 1;
+  }
+}
+
+
+
+@media (min-width: 541px) and (max-width: 1050px) {
+
+  .organization-table-container {
+      @for $i from 1 through 1 {
+        .MuiTable-root .MuiTableHead-root .MuiTableRow-root .MuiTableCell-root:nth-last-child(#{$i}), 
+        .MuiTable-root .MuiTableBody-root .MuiTableRow-root .MuiTableCell-root:nth-last-child(#{$i}){
+          display: none;
+        }
+      }
+
+      .organizationTitle {
+        font-size: 16px !important;
+      }
+    }
+}
+@media (min-width: 320px) and (max-width: 540px) {
+  .organization-table-container {
+      @for $i from 1 through 2 {
+        .MuiTable-root .MuiTableHead-root .MuiTableRow-root .MuiTableCell-root:nth-last-child(#{$i}), 
+        .MuiTable-root .MuiTableBody-root .MuiTableRow-root .MuiTableCell-root:nth-last-child(#{$i}){
+          display: none;
+        }
+      }
+      
+      th, td{
+        padding: 10px !important;
+      }
+    }
+}
+
+@media (min-width: 320px) and (max-width: 1440px) {
+  .detail-title {
+    font-size: 32px;
+
+    .ms-active,
+    .ms-suspend {
+      font-size: 18px !important;
+    }
+  }
+
+  .discount-apply {
+    font-size: 16px !important;
+  }
+
+  .organization-table-container {
+    th,
+    td,
+    tr {
+      font-size: 15px !important;
+      line-height: 30px !important;
+      white-space: nowrap;
+    }
+
+
+    .organizationTitle {
+      font-size: 14px !important;
+      line-height: 1.3 !important;
+    }
+
+    .discount {
+      font-size: 14px !important;
+    }
+  }
+  .discount-field {
+    .MuiOutlinedInput-input {
+      height: 0.5em !important;
+    }
+  }
+}

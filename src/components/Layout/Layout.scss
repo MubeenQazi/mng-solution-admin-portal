@@ -1,0 +1,112 @@
+.panel-light {
+  background: #fbfbfb 0% 0% no-repeat padding-box;
+  border: 1px solid #d1d2d433;
+  padding: 35px;
+  margin-top: 30px;
+  max-height: 697px;
+  border-radius: 10px;
+  overflow: auto;
+}
+
+.ms-active {
+  color: #44c2b2 !important;
+  font: normal normal normal 18px/80px Raleway !important;
+}
+
+.ms-suspend {
+  color: #ff3636 !important;
+  font: normal normal normal 18px/80px Raleway !important;
+}
+
+.ms-meta-title,
+.ms-meta-data {
+  letter-spacing: 0px;
+  color: #333333;
+  line-height: 1 !important;
+}
+
+.ms-meta-title {
+  font: normal normal bold 20px Raleway;
+  padding-right: 10px;
+}
+
+.ms-meta-data {
+  font: normal normal normal 20px/0 Raleway;
+}
+
+.ms-description-summary {
+  font: normal normal normal 24px/44px Raleway;
+  letter-spacing: 0px;
+  color: #666666;
+}
+
+.dahboard-layout-main {
+  flex-grow: 1;
+  padding: 0 45px 0 60px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  .content {
+    background-color: #fff;
+    padding: 30px 50px 56px;
+    border-radius: 10px;
+    min-height: 70vh;
+    ul {
+      font: normal normal normal 24px/60px Raleway;
+      letter-spacing: 0px;
+      color: #666666;
+      li {
+        margin-bottom: 15px;
+      }
+      li::marker {
+        color: #ee7623;
+        /* Change the color */
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 1440px) {
+  h1 {
+    line-height: 1.5;
+    font-size: 22px;
+    margin: 0;
+  }
+
+  .dahboard-layout-main {
+    width: 85%;
+    overflow-x: hidden;
+    margin: 20px 10px;
+    .dahboard-header {
+      margin-top: 80px;
+    }
+    .content {
+      padding: 30px;
+      .ms-meta-title,
+      .ms-meta-data {
+        font-size: 18px;
+      }
+      .ms-description-summary {
+        font-size: 20px;
+        line-height: 30px;
+      }
+
+      ul {
+        font-size: 18px;
+        line-height: 35px;
+      }
+      button.MuiButtonBase-root {
+        font-size: 16px !important;
+        height: 40px !important;
+        padding: 5px 25px !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 1250px) {
+  .dahboard-layout-main {
+    padding: 0px !important;
+  }
+}

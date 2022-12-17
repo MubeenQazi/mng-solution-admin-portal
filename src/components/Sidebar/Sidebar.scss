@@ -1,0 +1,129 @@
+$color_1: #fff;
+$background-color_1: #ee7623;
+$background-color_2: #f3893e;
+
+.logo img.app-logo {
+  width: 100%;
+  max-width: 200px;
+}
+.sidebarnav {
+  .navLink {
+    font: normal normal 500 20px/80px Raleway;
+  }
+  // selected and (selected + hover) states
+  & .MuiListItem-root {
+    height: 70px;
+    gap: 20px;
+    border-radius: 35px 0px 0px 35px;
+    margin-bottom: 16px;
+    padding: 0 30px;
+    transition: 0.3s;
+    & .MuiListItemIcon-root {
+      color: #ee7623;
+      min-width: auto;
+      width: 44px;
+      height: 44px;
+      background-color: #fff7f2;
+      border-radius: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  // & .Mui-selected,
+  // & .Mui-selected:hover {
+  //   background-color: #ee7623 !important;
+  //   & .MuiListItemIcon-root {
+  //     color: #fff;
+  //     background-color: #f3893e;
+  //   }
+  //   & .MuiTypography-root {
+  //     color: #fff;
+  //   }
+    & .active,
+  & .active:hover {
+    background-color: #ee7623 !important;
+    & .MuiListItemIcon-root {
+      color: #fff;
+      background-color: #f3893e;
+    }
+    & .MuiTypography-root {
+      color: #fff;
+    }
+  }
+
+  // hover states
+  & .MuiListItem-root:hover {
+    background-color: #ee7623;
+    & .MuiListItemIcon-root {
+      color: #fff;
+      background-color: #f3893e;
+    }
+    & .MuiTypography-root {
+      color: #fff;
+    }
+  }
+}
+
+@media (min-width: 1025px) {
+  .MuiDrawer-root {
+    .MuiPaper-root {
+      left: 0% !important;
+    }
+  }
+}
+
+@media (max-width: 1440px) {
+  .dashboard-header {
+    padding: 0px;
+  }
+  .sidebarnav {
+    .navLink {
+      font-size: 16px;
+    }
+
+    & .MuiListItem-root {
+      margin-bottom: 10px;
+      padding: 0 20px;
+      & .MuiListItemIcon-root {
+        width: 34px;
+        height: 34px;
+
+        & .MuiSvgIcon-root {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}
+.MuiDrawer-root {
+  .MuiPaper-root {
+    .responsive-menu-hamburger {
+      display: none;
+      right: 20px;
+      top: 8px;
+      position: absolute;
+    }
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1250px) {
+  .responsive-sidebar {
+    width: 260px !important;
+    .MuiPaper-root {
+      max-width: 250px !important;
+    }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 1024px) {
+  .MuiDrawer-root {
+    position: absolute;
+    .MuiPaper-root {
+      left: -100%;
+      .responsive-menu-hamburger {
+        display: block;
+      }
+    }
+  }
+}
