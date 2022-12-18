@@ -1,8 +1,8 @@
 import React from "react";
 import {Link, useLocation} from "react-router-dom";
 import Box from "@mui/material/Box";
-import MSButton from "../../components/Button/Button";
-import DownloadButton from "../../components/DownloadButton/DownloadButton";
+import MSButton from "../../submodule/components/MSButton/MSButton";
+import DownloadButton from "../../submodule/components/DownloadButton/DownloadButton";
 import {styled} from "@mui/system";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";

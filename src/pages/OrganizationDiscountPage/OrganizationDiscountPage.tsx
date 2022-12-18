@@ -2,7 +2,7 @@ import * as React from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
-import DownloadButton from "../../components/DownloadButton/DownloadButton";
+import DownloadButton from "../../submodule/components/DownloadButton/DownloadButton";
 import { Link, useLocation, useParams } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import TableBody from "@mui/material/TableBody";
@@ -23,7 +23,7 @@ import {
 import { TableStyled } from "../../components/Tables/TableStyles";
 import { OrganizationDiscountData } from "../../components/Tables/TableData";
 import EnhancedTableHead, {EnhancedTableToolbar} from "../../components/Tables/TableHead";
-import MSButton from "../../components/Button/Button";
+import MSButton from "../../submodule/components/MSButton/MSButton";
 
 interface Data {
   id: number;

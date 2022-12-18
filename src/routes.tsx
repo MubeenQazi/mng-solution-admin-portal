@@ -7,7 +7,7 @@ import OrganizationDetailPage from "./pages/OrganizationDetailPage/OrganizationD
 import GroupWorkOutlinedIcon from "@mui/icons-material/GroupWorkOutlined";
 import {Modules} from "./shared/enum/enum";
 import OrganizationDiscountPage from "./pages/OrganizationDiscountPage/OrganizationDiscountPage";
-import NotfoundPage from "./pages/NotFoundPage/NotfoundPage";
+import NotfoundPage from "./submodule/pages/NotFoundPage/NotfoundPage";
 
 export const SideBarRoutes = [
   {

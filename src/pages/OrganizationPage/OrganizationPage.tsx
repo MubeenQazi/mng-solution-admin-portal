@@ -12,7 +12,7 @@ import {
 import { TableStyled } from "../../components/Tables/TableStyles";
 import { OrganizationData } from "../../components/Tables/TableData";
 import EnhancedTableHead from "../../components/Tables/TableHead";
-import DownloadButton from "../../components/DownloadButton/DownloadButton";
+import DownloadButton from "../../submodule/components/DownloadButton/DownloadButton";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import "./Organization.scss";
 
