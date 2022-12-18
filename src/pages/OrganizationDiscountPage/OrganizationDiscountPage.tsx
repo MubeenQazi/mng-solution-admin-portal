@@ -12,17 +12,17 @@ import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-import SearchBar from "../../components/SearchBar/SearchBar";
+import SearchBar from "../../submodule/components/SearchBar/SearchBar";
 import { FormControl, Grid, ListItem, TextField } from "@mui/material";
 import "../OrganizationPage/Organization.scss";
 import {
   stableSort,
   getComparator,
   Order,
-} from "../../components/Tables/Table";
-import { TableStyled } from "../../components/Tables/TableStyles";
-import { OrganizationDiscountData } from "../../components/Tables/TableData";
-import EnhancedTableHead, {EnhancedTableToolbar} from "../../components/Tables/TableHead";
+} from "../../submodule/components/Tables/Table";
+import { TableStyled } from "../../submodule/components/Tables/TableStyles";
+import { OrganizationDiscountData } from "../../submodule/components/Tables/TableData";
+import EnhancedTableHead, {EnhancedTableToolbar} from "../../submodule/components/Tables/TableHead";
 import MSButton from "../../submodule/components/MSButton/MSButton";
 
 interface Data {

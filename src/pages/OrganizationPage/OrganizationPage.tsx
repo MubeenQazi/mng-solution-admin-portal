@@ -8,12 +8,12 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import {
   stableSort, getComparator, Order,
-} from "../../components/Tables/Table";
-import { TableStyled } from "../../components/Tables/TableStyles";
-import { OrganizationData } from "../../components/Tables/TableData";
-import EnhancedTableHead from "../../components/Tables/TableHead";
+} from "../../submodule/components/Tables/Table";
+import { TableStyled } from "../../submodule/components/Tables/TableStyles";
+import { OrganizationData } from "../../submodule/components/Tables/TableData";
+import EnhancedTableHead from "../../submodule/components/Tables/TableHead";
 import DownloadButton from "../../submodule/components/DownloadButton/DownloadButton";
-import SearchBar from "../../components/SearchBar/SearchBar";
+import SearchBar from "../../submodule/components/SearchBar/SearchBar";
 import "./Organization.scss";
 
 interface Data {
