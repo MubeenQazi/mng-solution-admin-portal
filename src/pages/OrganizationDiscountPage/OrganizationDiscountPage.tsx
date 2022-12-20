@@ -1,3 +1,5 @@
+/** @format */
+
 import * as React from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Box from "@mui/material/Box";
@@ -22,7 +24,9 @@ import {
 } from "../../submodule/components/Tables/Table";
 import { TableStyled } from "../../submodule/components/Tables/TableStyles";
 import { OrganizationDiscountData } from "../../submodule/components/Tables/TableData";
-import EnhancedTableHead, {EnhancedTableToolbar} from "../../submodule/components/Tables/TableHead";
+import EnhancedTableHead, {
+  EnhancedTableToolbar,
+} from "../../submodule/components/Tables/TableHead";
 import MSButton from "../../submodule/components/MSButton/MSButton";
 
 interface Data {
@@ -78,8 +82,8 @@ const OrganizationDiscountPage = () => {
   const [selected, setSelected] = React.useState<readonly number[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const location =  useLocation();
-  const {organizationDetailId} = useParams();
+  const location = useLocation();
+  const { organizationDetailId } = useParams();
 
   const requestSearch = (searchedVal: string) => {
     const filteredRows = rows.filter((row) => {
@@ -171,7 +175,8 @@ const OrganizationDiscountPage = () => {
   const isSelected = (id: number) => selected.indexOf(id) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
   const columns = ["ID", "Title", "Discount", "Sku", "Description"];
 
   return (
@@ -185,7 +190,11 @@ const OrganizationDiscountPage = () => {
         <h1 className="detail-title">
           McDonald's <span className="ms-suspend">(Suspended)</span>
         </h1>
-        <DownloadButton rows={ rows } columns={columns} filename="organizationDiscount.csv" />
+        <DownloadButton
+          rows={rows}
+          columns={columns}
+          filename="organizationDiscount.csv"
+        />
       </Box>
 
       <Box>
@@ -211,7 +220,7 @@ const OrganizationDiscountPage = () => {
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
                 rowCount={rows.length}
-                headCells= {headCells}
+                headCells={headCells}
               />
               <TableBody>
                 {/* if you don't need to support IE11, you can replace the `stableSort` call with:
@@ -274,12 +283,17 @@ const OrganizationDiscountPage = () => {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
 
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} md={4}>
+          <Grid
+            container
+            spacing={2}
+            alignItems={"center"}
+            className="flex-order-reverse"
+          >
+            <Grid item xs={6} sm={3} md={4}>
               <ListItem
                 component={Link}
-                to={`/organization/detail/${organizationDetailId}`}
-                state={{activeSideBar: location.state?.activeSideBar}}
+                to={`/dashboard/organization/detail/${organizationDetailId}`}
+                state={{ activeSideBar: location.state?.activeSideBar }}
               >
                 <MSButton
                   text="Back"
@@ -323,12 +337,12 @@ const OrganizationDiscountPage = () => {
               </div>
             </Grid>
 
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={6} sm={3} md={4}>
               <ListItem
                 component={Link}
-                to={"/organization"}
-                state={{activeSideBar: location.state?.activeSideBar}}
-                className="justify-content-lg-end"
+                to={"/dashboard/organization"}
+                state={{ activeSideBar: location.state?.activeSideBar }}
+                className="justify-content-end"
               >
                 <MSButton text="Save" backgroundColor="#EE7623" />
               </ListItem>
@@ -338,6 +352,6 @@ const OrganizationDiscountPage = () => {
       </Box>
     </div>
   );
-}
+};
 
 export default OrganizationDiscountPage;
