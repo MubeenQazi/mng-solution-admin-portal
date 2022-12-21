@@ -6,6 +6,7 @@ import OrganizationPage from "./pages/OrganizationPage/OrganizationPage";
 import OrganizationDetailPage from "./pages/OrganizationDetailPage/OrganizationDetailPage";
 import OrganizationDiscountPage from "./pages/OrganizationDiscountPage/OrganizationDiscountPage";
 import NotfoundPage from "./submodule/pages/NotFoundPage/NotfoundPage";
+import Start from "./submodule/pages/Start/Start";
 import LoginPage from "./pages/LoginPage/LoginPage";
 
 const Routes = () => {
@@ -13,6 +14,7 @@ const Routes = () => {
     <BrowserRouter>
       <Router>
         <Route path="*" element={<NotfoundPage />} />
+        <Route path="/start" element={<Start />} />
         <Route path="/login" element={<LoginPage userType="admin" />} />
         <Route path="/" element={<Layout />}>
           <Route path="organization" element={<OrganizationPage />} />
