@@ -1,4 +1,6 @@
-import {getImageProxy} from "../submodule/utils/utils";
+/** @format */
+
+import { getImageProxy } from "../submodule/utils/utils";
 
 const basePath = `${process.env.PUBLIC_URL}/images`;
 
@@ -7,6 +9,8 @@ const AppImagesPaths = {
   sortingIcon: "sortingIcon.svg",
   logoBg: "logoBg.png",
   img404: "img-404.png",
-}
+  microsoft: "microsoft.png",
+  loginPopupImage: "login-pop-up-img.png",
+};
 
 export const AppImages = getImageProxy(basePath, AppImagesPaths);
