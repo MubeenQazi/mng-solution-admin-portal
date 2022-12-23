@@ -5,12 +5,16 @@ import { Button, Grid } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import Footer from "../../submodule/components/admin/Footer/Footer";
 import "./Login.scss";
-import { CustomizedDialogs, LogoutPopup, ErrorPopup } from "./Popup";
+import {
+  CustomizedDialogs,
+  LogoutPopup,
+  ErrorPopup,
+} from "../../submodule/components/AuthPopup/AuthPopup";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { AppImages } from "../../shared/images";
 import "./Login.scss";
-const { microsoft, logo } = AppImages;
+const { microsoft, logo, loginPopupImage } = AppImages;
 
 const Login = (props: any) => {
   const navigate = useNavigate();
@@ -77,7 +81,7 @@ const Login = (props: any) => {
                   searchParams.get("e") !== null && (
                     <ErrorPopup errorMessage={searchParams.get("e")} />
                   )}
-                <CustomizedDialogs />
+                <CustomizedDialogs popup={loginPopupImage} />
               </div>
             </div>
             <Button className="btn-submit" onClick={attemptLogin}>

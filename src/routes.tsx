@@ -15,7 +15,7 @@ const Routes = () => {
       <Router>
         <Route path="*" element={<NotfoundPage />} />
         <Route path="/start" element={<Start app="add" />} />
-        <Route path="/login" element={<LoginPage userType="admin" />} />
+        <Route path="/" element={<LoginPage userType="admin" />} />
         <Route path="/" element={<Layout />}>
           <Route path="organization" element={<OrganizationPage />} />
           <Route
