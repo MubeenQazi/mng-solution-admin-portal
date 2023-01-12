@@ -63,6 +63,22 @@
     margin-right: 16px;
     opacity: 1;
   }
+
+  .action-btn {
+    a {
+      background: #0a7eca80;
+      border: 1px solid #0a7eca;
+      padding: 10px 20px;
+      border-radius: 38px;
+      color: #fff;
+      &:hover {
+        color: #fff;
+        box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+          0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+          0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+      }
+    }
+  }
 }
 
 @media (min-width: 541px) and (max-width: 1050px) {

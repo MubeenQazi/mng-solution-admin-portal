@@ -1,9 +1,11 @@
+/** @format */
+
 import React from "react";
-import {Link, useLocation} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
 import MSButton from "../../submodule/components/MSButton/MSButton";
 import DownloadButton from "../../submodule/components/DownloadButton/DownloadButton";
-import {styled} from "@mui/system";
+import { styled } from "@mui/system";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Radio from "@mui/material/Radio";
@@ -11,9 +13,9 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ListItem from "@mui/material/ListItem";
-import {TextField} from "@mui/material";
+import { TextField } from "@mui/material";
 
-const Item = styled(Paper)(({theme}) => ({
+const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   //...theme.typography.body2,
   padding: theme.spacing(1),
@@ -25,7 +27,7 @@ const OrganizationDetailPage = () => {
   const location = useLocation();
 
   const [value, setValue] = React.useState(
-    location.state != null ? location.state.status : "Active"
+    location.state != null ? location.state.status : "active"
   );
 
   const organizationDetail = location.state;
@@ -36,7 +38,14 @@ const OrganizationDetailPage = () => {
     setValue((event.target as HTMLInputElement).value);
   };
 
-  const columns = ["ID", "Organization", "Status", "Created", "Tenant Id", "Notes"];
+  const columns = [
+    "ID",
+    "Organization",
+    "Status",
+    "Created",
+    "Tenant Id",
+    "Notes",
+  ];
 
   return (
     <div>
@@ -47,37 +56,39 @@ const OrganizationDetailPage = () => {
         }}
       >
         <h1>
-          {location.state.organization}{" "}
+          {location.state.name}{" "}
           <span
             className={
-              location.state.status === "Active" ? "ms-active" : "ms-suspend"
+              location.state.status === "active" ? "ms-active" : "ms-suspend"
             }
           >
             ({location.state.status})
           </span>
         </h1>
 
-        <DownloadButton rows={organizationDetailArr} columns={columns} filename="organizationDetail.csv"/>
+        <DownloadButton
+          rows={organizationDetailArr}
+          columns={columns}
+          filename="organizationDetail.csv"
+        />
       </Box>
-      <Box sx={{flexGrow: 1}}>
+      <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={1}>
           <Grid item xs={12} md={12}>
             <Item className="d-md-flex align-items-md-center">
               <h3 className="ms-meta-title">Created On: </h3>
-              <h3 className="ms-meta-data">{location.state.created}</h3>
+              <h3 className="ms-meta-data">{location.state.creation_date}</h3>
             </Item>
           </Grid>
           <Grid item xs={12} md={12}>
             <Item className="d-md-flex align-items-md-center">
               <h3 className="ms-meta-title">Tenant ID: </h3>
-              <h3 className="ms-meta-data">
-                {location.state.organization_tenant_id}
-              </h3>
+              <h3 className="ms-meta-data">{location.state.tenant_id}</h3>
             </Item>
           </Grid>
         </Grid>
       </Box>
-      <Box sx={{flexGrow: 1}}>
+      <Box sx={{ flexGrow: 1 }}>
         <div className="panel-light organization">
           <Grid container spacing={2} alignItems="center">
             <Grid item xs={12} sm={5}>
@@ -93,13 +104,13 @@ const OrganizationDetailPage = () => {
                 className="radio-button-group"
               >
                 <FormControlLabel
-                  value="Active"
-                  control={<Radio/>}
+                  value="active"
+                  control={<Radio />}
                   label="Active"
                 />
                 <FormControlLabel
-                  value="Suspended"
-                  control={<Radio/>}
+                  value="suspended"
+                  control={<Radio />}
                   label="Suspended"
                 />
               </RadioGroup>
@@ -110,7 +121,7 @@ const OrganizationDetailPage = () => {
             container
             spacing={2}
             alignItems="center"
-            sx={{marginTop: "30px"}}
+            sx={{ marginTop: "30px" }}
           >
             <Grid item xs={12} sm={5}>
               <h1 className="ms-meta-title">Manage Organization Discounts </h1>
@@ -118,16 +129,19 @@ const OrganizationDetailPage = () => {
             <Grid item xs={12} sm={6}>
               <ListItem
                 component={Link}
-                to={`/organization/discount/${location.state.id}`}
-                sx={{padding: "0"}}
-                state={{activeSideBar: location.state?.activeSideBar}}
+                to={`/organization/discount/${location.state.organization_id}`}
+                sx={{ padding: "0" }}
+                state={
+                  (location.state.discounts,
+                  { activeSideBar: location.state?.activeSideBar })
+                }
               >
-                <MSButton text="Change Discounts" backgroundColor="#EE7623"/>
+                <MSButton text="Change Discounts" backgroundColor="#EE7623" />
               </ListItem>
             </Grid>
           </Grid>
 
-          <Grid container spacing={2} sx={{marginTop: "30px"}}>
+          <Grid container spacing={2} sx={{ marginTop: "30px" }}>
             <Grid item xs={12} sm={5}>
               <h1 className="ms-meta-title">Notes </h1>
             </Grid>
@@ -144,13 +158,13 @@ const OrganizationDetailPage = () => {
             </Grid>
           </Grid>
 
-          <Grid container sx={{marginTop: "20px"}}>
+          <Grid container sx={{ marginTop: "20px" }}>
             <Grid item xs={12} sm={6}>
               <ListItem component={Link} to={"/organization"}>
                 <MSButton
                   text="Back"
                   backgroundColor="#9BA4AF"
-                  icon={<ArrowBackIosIcon/>}
+                  icon={<ArrowBackIosIcon />}
                 />
               </ListItem>
             </Grid>
@@ -159,10 +173,10 @@ const OrganizationDetailPage = () => {
               <ListItem
                 component={Link}
                 to={"/organization"}
-                state={{activeSideBar: location.state?.activeSideBar}}
+                state={{ activeSideBar: location.state?.activeSideBar }}
                 className="justify-content-md-end"
               >
-                <MSButton text="Save" backgroundColor="#EE7623"/>
+                <MSButton text="Save" backgroundColor="#EE7623" />
               </ListItem>
             </Grid>
           </Grid>

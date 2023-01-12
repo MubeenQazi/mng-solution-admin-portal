@@ -1,5 +1,7 @@
-import React from 'react';
-import { Link, useLocation, useNavigate } from "react-router-dom";
+/** @format */
+
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,7 +9,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import {
-  stableSort, getComparator, Order,
+  stableSort,
+  getComparator,
+  Order,
 } from "../../submodule/components/Tables/Table";
 import { TableStyled } from "../../submodule/components/Tables/TableStyles";
 import { OrganizationData } from "../../submodule/components/Tables/TableData";
@@ -15,14 +19,16 @@ import EnhancedTableHead from "../../submodule/components/Tables/TableHead";
 import DownloadButton from "../../submodule/components/DownloadButton/DownloadButton";
 import SearchBar from "../../submodule/components/SearchBar/SearchBar";
 import "./Organization.scss";
+import axios from "axios";
 
 interface Data {
-  id: number;
-  organization: string;
+  organization_id: string;
+  name: string;
   status: string;
-  created: string;
-  organization_tenant_id: string;
+  creation_date: string;
+  tenant_id: string;
   notes: string;
+  discounts: any;
 }
 
 const originalRow = OrganizationData;
@@ -36,7 +42,7 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
-    id: "organization",
+    id: "name",
     numeric: false,
     disablePadding: true,
     label: "Organization",
@@ -48,32 +54,42 @@ const headCells: readonly HeadCell[] = [
     label: "Status",
   },
   {
-    id: "created",
+    id: "creation_date",
     numeric: false,
     disablePadding: true,
     label: "Created",
   },
   {
-    id: "organization_tenant_id",
+    id: "tenant_id",
     numeric: false,
     disablePadding: true,
-    label: "Organization Tenant Id",
+    label: "Tenant Id",
   },
 ];
 
 const OrganizationPage = () => {
-  const [rows, setRows] = React.useState<Data[]>(originalRow);
-  const [searched, setSearched] = React.useState<string>("");
-  const [order, setOrder] = React.useState<Order>("desc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("organization");
-  const [page] = React.useState(0);
-  const [rowsPerPage] = React.useState(5);
+  const [rows, setRows] = useState<Data[]>(originalRow);
+  const [searched, setSearched] = useState<string>("");
+  const [order, setOrder] = useState<Order>("desc");
+  const [orderBy, setOrderBy] = useState<keyof Data>("name");
+  const [page] = useState(0);
+  const [rowsPerPage] = useState(5);
   const location = useLocation();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_ADMIN_API_BASE}/organizations`)
+      .then(function (response) {
+        if (response.data) {
+          setRows(response.data);
+        }
+      });
+  }, []);
+
   const requestSearch = (searchedVal: string) => {
     const filteredRows = rows.filter((row) => {
-      return row.organization.toLowerCase().includes(searchedVal.toLowerCase());
+      return row.name.toLowerCase().includes(searchedVal.toLowerCase());
     });
     setRows(filteredRows);
   };
@@ -102,14 +118,13 @@ const OrganizationPage = () => {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  const columns = [
-    "ID","Organization", "Status", "Created", "Tenant Id"
-  ];
-
+  const columns = ["ID", "Organization", "Status", "Created", "Tenant Id"];
 
   const clickableRow = (row: any) => {
-    navigate(`detail/${row.id}`, { state: { ...row, ...{ activeSideBar: location.state?.activeSideBar } } });
-  }
+    navigate(`detail/${row.organization_id}`, {
+      state: { ...row, ...{ activeSideBar: location.state?.activeSideBar } },
+    });
+  };
 
   return (
     <div>
@@ -119,7 +134,11 @@ const OrganizationPage = () => {
           marginBottom: `30px`,
         }}
       >
-        <DownloadButton rows={ rows } columns={columns} filename="organization.csv" />
+        <DownloadButton
+          rows={rows}
+          columns={columns}
+          filename="organization.csv"
+        />
       </Box>
 
       <Box>
@@ -135,7 +154,7 @@ const OrganizationPage = () => {
                 orderBy={orderBy}
                 onRequestSort={handleRequestSort}
                 rowCount={rows.length}
-                headCells= {headCells}
+                headCells={headCells}
               />
               <TableBody>
                 {/* if you don't need to support IE11, you can replace the `stableSort` call with:
@@ -144,11 +163,14 @@ const OrganizationPage = () => {
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
                     return (
-                      <TableRow hover tabIndex={-1} key={row.id} onClick={() => clickableRow(row)}>
+                      <TableRow
+                        hover
+                        tabIndex={-1}
+                        key={row.organization_id}
+                        onClick={() => clickableRow(row)}
+                      >
                         <TableCell className="organizationTitle">
-                          <Link to={{ pathname: `detail/${row.id}` }} state={{...row, ...{activeSideBar: location.state?.activeSideBar}}}>
-                            {row.organization}
-                          </Link>
+                          {row.name}
                         </TableCell>
                         <TableCell
                           className={`ms-${
@@ -157,8 +179,8 @@ const OrganizationPage = () => {
                         >
                           {row.status}
                         </TableCell>
-                        <TableCell>{row.created}</TableCell>
-                        <TableCell>{row.organization_tenant_id}</TableCell>
+                        <TableCell>{row.creation_date}</TableCell>
+                        <TableCell>{row.tenant_id}</TableCell>
                       </TableRow>
                     );
                   })}
@@ -183,6 +205,6 @@ const OrganizationPage = () => {
       </Box>
     </div>
   );
-}
+};
 
 export default OrganizationPage;

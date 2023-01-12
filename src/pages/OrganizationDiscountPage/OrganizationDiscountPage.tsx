@@ -1,6 +1,6 @@
 /** @format */
 
-import * as React from "react";
+import React, { useState } from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
@@ -17,27 +17,28 @@ import Typography from "@mui/material/Typography";
 import SearchBar from "../../submodule/components/SearchBar/SearchBar";
 import { FormControl, Grid, ListItem, TextField } from "@mui/material";
 import "../OrganizationPage/Organization.scss";
+import AlertMessage from "../../submodule/components/AlertMessage/AlertMessage";
+
 import {
   stableSort,
   getComparator,
   Order,
 } from "../../submodule/components/Tables/Table";
 import { TableStyled } from "../../submodule/components/Tables/TableStyles";
-import { OrganizationDiscountData } from "../../submodule/components/Tables/TableData";
 import EnhancedTableHead, {
   EnhancedTableToolbar,
 } from "../../submodule/components/Tables/TableHead";
 import MSButton from "../../submodule/components/MSButton/MSButton";
+import axios from "axios";
 
 interface Data {
-  id: number;
-  title: string;
-  discount: string;
+  organization_id: string;
+  offer_id: string;
+  name: string;
+  discount_percent: string;
   sku: string;
   description: string;
 }
-
-const originalRow = OrganizationDiscountData;
 
 interface HeadCell {
   disablePadding: boolean;
@@ -48,13 +49,13 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
-    id: "title",
+    id: "name",
     numeric: false,
     disablePadding: true,
     label: "Title",
   },
   {
-    id: "discount",
+    id: "discount_percent",
     numeric: false,
     disablePadding: true,
     label: "Discount",
@@ -74,20 +75,24 @@ const headCells: readonly HeadCell[] = [
 ];
 
 const OrganizationDiscountPage = () => {
-  const [rows, setRows] = React.useState<Data[]>(originalRow);
-  const [searched, setSearched] = React.useState<string>("");
-  const [discountVal, setDiscount] = React.useState<string>("");
-  const [order, setOrder] = React.useState<Order>("desc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("title");
-  const [selected, setSelected] = React.useState<readonly number[]>([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const location = useLocation();
+
+  const [rows, setRows] = useState<Data[]>(location.state);
+  const [searched, setSearched] = useState<string>("");
+  const [discountVal, setDiscount] = useState<string>("");
+  const [order, setOrder] = useState<Order>("desc");
+  const [orderBy, setOrderBy] = useState<keyof Data>("name");
+  const [selected, setSelected] = useState<readonly number[]>([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const { organizationDetailId } = useParams();
+
+  const [message, setMessage] = useState<string>("");
+  const [alert, setAlert] = useState<boolean>(false);
 
   const requestSearch = (searchedVal: string) => {
     const filteredRows = rows.filter((row) => {
-      return row.title.toLowerCase().includes(searchedVal.toLowerCase());
+      return row.name.toLowerCase().includes(searchedVal.toLowerCase());
     });
     setRows(filteredRows);
   };
@@ -99,7 +104,7 @@ const OrganizationDiscountPage = () => {
       requestSearch(event.target.value as string);
     } else {
       setSearched("");
-      setRows(originalRow);
+      setRows(rows);
     }
   };
 
@@ -114,7 +119,7 @@ const OrganizationDiscountPage = () => {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.id);
+      const newSelected = rows.map((n, index) => index);
       setSelected(newSelected);
       return;
     }
@@ -142,9 +147,32 @@ const OrganizationDiscountPage = () => {
   };
 
   const applyDiscount = () => {
-    const filteredRows = rows.map((row) => {
-      if (selected.includes(row.id)) {
-        row.discount = discountVal + "%";
+    const filteredRows = rows.map((row, index) => {
+      if (selected.includes(index)) {
+        const data = [
+          row.organization_id,
+          row.offer_id,
+          row.name,
+          row.description,
+          row.sku,
+          discountVal,
+        ];
+        axios
+          .post(
+            `${process.env.REACT_APP_ADMIN_API_BASE}/organization/${row.organization_id}/discounts`,
+            data
+          )
+          .then((response) => {
+            location.state.discount_percent = discountVal;
+            row.discount_percent = discountVal + "%";
+            setMessage("success");
+            setAlert(true);
+          })
+          .catch(() => {
+            setMessage("fail");
+            setAlert(true);
+          });
+        //
       }
       return row;
     });
@@ -154,8 +182,8 @@ const OrganizationDiscountPage = () => {
   };
 
   const deleteRowData = () => {
-    const filteredRows = rows.filter((row) => {
-      return !selected.includes(row.id);
+    const filteredRows = rows.filter((row, index) => {
+      return !selected.includes(index);
     });
     setRows(filteredRows);
     setSelected([]);
@@ -181,6 +209,10 @@ const OrganizationDiscountPage = () => {
 
   return (
     <div>
+      {message === "success"
+        ? AlertMessage(alert, "Discount Changes Succefully", "success")
+        : message === "fail" &&
+          AlertMessage(alert, "Discount Changing Failed", "error")}
       <Box
         className="d-md-flex justify-content-md-between align-items-md-center"
         sx={{
@@ -228,17 +260,17 @@ const OrganizationDiscountPage = () => {
                 {stableSort(rows, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
-                    const isItemSelected = isSelected(row.id);
+                    const isItemSelected = isSelected(index);
                     const labelId = `enhanced-table-checkbox-${index}`;
 
                     return (
                       <TableRow
                         hover
-                        onClick={(event) => handleClick(event, row.id)}
+                        onClick={(event) => handleClick(event, index)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
-                        key={row.id}
+                        key={row.organization_id}
                         selected={isItemSelected}
                       >
                         <TableCell padding="checkbox">
@@ -255,10 +287,10 @@ const OrganizationDiscountPage = () => {
                           padding="none"
                           className="organizationTitle"
                         >
-                          {row.title}
+                          {row.name}
                         </TableCell>
                         <TableCell className="discount">
-                          {row.discount}
+                          {row.discount_percent}
                         </TableCell>
                         <TableCell>{row.sku}</TableCell>
                         <TableCell>{row.description}</TableCell>

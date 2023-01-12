@@ -1,0 +1,52 @@
+image: node:18
+
+pipelines:
+  branches:
+    main:
+      - step:
+          name: Build for Staging
+          caches:
+            - node
+          script:
+            - git submodule update --init --recursive
+            - npm install
+            - npm run build:staging
+            - rm -fr build
+            - mkdir -p publish
+            - mv build publish/staging
+          artifacts:
+            - publish/staging/**
+      - step:
+          name: Build for Production
+          caches:
+            - node
+          script:
+            - git submodule update --init --recursive
+            - npm install
+            - npm run build:production
+            - rm -fr build
+            - mkdir -p publish
+            - mv dist publish/production
+          artifacts:
+            - publish/production/**
+      - step:
+          name: Deploy to Staging
+          deployment: staging
+          image: microsoft/azure-cli:latest
+          script:
+            - az cloud set --name $AZURE_CLOUD_NAME
+            - az login --service-principal --username $AZURE_APP_ID --password $AZURE_PASSWORD --tenant $AZURE_TENANT_ID
+            - az storage remove -c '$web' --include-path $AZURE_STORAGE_RM_INC --exclude-path $AZURE_STORAGE_RM_EXC --recursive --account-name $AZURE_STORAGE_ACCOUNT
+            - az storage blob upload-batch --account-name $AZURE_STORAGE_ACCOUNT -s 'publish/staging' -d $AZURE_STORAGE_CONTAINER_URI --destination-path $AZURE_STORAGE_DESTINATION
+            - az cdn endpoint purge --content-paths '/' -n $AZURE_CDN_ENDPOINT -g $AZURE_RESOURCE_GROUP --profile-name $AZURE_CDN_PROFILE --no-wait
+      - step:
+          name: Deploy to Production
+          deployment: production
+          trigger: manual
+          image: microsoft/azure-cli:latest
+          script:
+            - az cloud set --name $AZURE_CLOUD_NAME
+            - az login --service-principal --username $AZURE_APP_ID --password $AZURE_PASSWORD --tenant $AZURE_TENANT_ID
+            - az storage remove -c '$web' --include-path $AZURE_STORAGE_RM_INC --exclude-path $AZURE_STORAGE_RM_EXC --recursive --account-name $AZURE_STORAGE_ACCOUNT
+            - az storage blob upload-batch --account-name $AZURE_STORAGE_ACCOUNT -s 'publish/production' -d $AZURE_STORAGE_CONTAINER_URI --destination-path $AZURE_STORAGE_DESTINATION
+            - az cdn endpoint purge --content-paths '/' -n $AZURE_CDN_ENDPOINT -g $AZURE_RESOURCE_GROUP --profile-name $AZURE_CDN_PROFILE --no-wait

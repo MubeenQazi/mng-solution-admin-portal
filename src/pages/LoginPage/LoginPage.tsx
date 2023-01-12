@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Grid } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import Footer from "../../submodule/components/admin/Footer/Footer";
@@ -22,7 +22,7 @@ const Login = (props: any) => {
 
   useEffect(() => {
     axios
-      .get("https://api.msolcsptest.com/sso/v1/signin", {
+      .get(`${process.env.REACT_APP_API_BASE}/sso/v1/signin`, {
         params: { app: "portal" },
       })
       .then(function (response) {
@@ -30,7 +30,10 @@ const Login = (props: any) => {
         var match = document.cookie.match(
           RegExp("(?:^|;\\s*)" + name + "=([^;]*)")
         );
-        return match && null;
+
+        if (match) {
+          navigate("/organization");
+        }
       })
       .catch(function (error) {
         // navigate("?e=unauthorized");
@@ -42,13 +45,6 @@ const Login = (props: any) => {
     window.location.href =
       "https://login.microsoftonline.com/common/oauth2/authorize?client_id=791926e0-9d96-45b0-a885-9b198c5628dc&response_mode=form_post&response_type=code%20id_token&scope=openid%20profile&redirect=https%3A%2F%2Fapi.msolcsptest.com%2Fsso%2Fv1%2Fcallback&state=" +
       state;
-  };
-  const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
   };
 
   let userType = props.userType;
@@ -66,7 +62,7 @@ const Login = (props: any) => {
     >
       <Grid item>
         <div className="app-login">
-          <img className="app-logo" src={logo} />
+          <img className="app-logo" src={logo} alt="logo" />
           <div className="login-inner">
             <div className="inner-content">
               <div className="content-left">
@@ -85,7 +81,7 @@ const Login = (props: any) => {
               </div>
             </div>
             <Button className="btn-submit" onClick={attemptLogin}>
-              <img className="btn-img" src={microsoft} />
+              <img className="btn-img" src={microsoft} alt="microsoft-logo" />
               <h3 className="btn-text">Continue with Microsoft</h3>
             </Button>
           </div>
